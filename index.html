@@ -8,11 +8,11 @@
   <meta name="description" content="Site 3 Events">
   <meta name="author" content="Site 3">
 
-  <link rel='stylesheet' href='css/fullcalendar.css' />
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css' />
   <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script src='js/fullcalendar.js'></script>
-  <script src='js/gcal.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/gcal.min.js'></script>
 </head>
 
 <body>
@@ -24,6 +24,7 @@
 	    $('#calendar').fullCalendar({
 			defaultView: 'agendaWeek',
 			minTime: '08:00:00',
+			nowIndicator: true,
 			googleCalendarApiKey: 'AIzaSyBwczBiqprJC_8iFAT9z9_0vD2i8ZnMpAo',
 		    events: {
 		      googleCalendarId: 'events%site3.ca@gtempaccount.com'
@@ -32,6 +33,7 @@
 
 	  });
   </script>
+  <h1>Site 3 events</h1>
   <div id='calendar'></div>
 </body>
 </html>
