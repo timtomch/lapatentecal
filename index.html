@@ -12,12 +12,38 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             locale: 'fr',
-            initialView: 'dayGridMonth',
+            initialView: 'customLaPatente',
+            duration: { days: 10 },
             height: 800,
             googleCalendarApiKey: 'AIzaSyBPNRDEH9rX4E4aYraON80HjioWTMIW4ao',
-            events: {
-              googleCalendarId: '04q4f467nvi9s7tqf1ttcemlv8@group.calendar.google.com'
-            }
+            eventSources: [
+                {
+                    googleCalendarId: '04q4f467nvi9s7tqf1ttcemlv8@group.calendar.google.com'
+                 }
+            ],
+            views: {
+                customLaPatente: {
+                  type: 'list',
+                    duration: { days: 14 }
+                }
+              },
+              eventDidMount: function(data) {
+                  
+                  try {
+                      if(data.event.extendedProps.description.length > 0){
+                          var descrElement = document.createElement("P");
+                          var descr = document.createTextNode(data.event.extendedProps.description);
+                          descrElement.appendChild(descr);
+                          data.el.querySelector('.fc-list-event-title').appendChild(descrElement);
+                      }
+                  }
+                  catch {}
+                  
+                  
+                      //console.log(data.el)
+                 
+                      //console.log(data.event.extendedProps.description)
+                      }
         });
         calendar.render();
       });
