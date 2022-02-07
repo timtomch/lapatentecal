@@ -3,8 +3,15 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
+    <!-- Import the Fullcalendar.io library and locale -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/fr-ca.js"></script>
+    <!-- Use the Moment library (and locale) to modify date display -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/locale/fr-ca.js"></script>
+    <!-- Import the Fullcalendar connector for the Moment library -->
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/moment@5.10.1/main.global.min.js"></script>
+    <!-- Import Fullcalendar.io CSS and local customizations -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
     <link rel="stylesheet" href="custom.css">
     <script>
@@ -41,11 +48,11 @@
             views: {
                 customLaPatente: {
                     type: 'list',
-                    duration: { days: 14 }
+                    duration: { days: 14 },
+                    listDayFormat : "dddd LL"
                 }
               },
                 eventDataTransform: function(eventData) {
-                    console.log(eventData);
                     var newEvent = eventData;
                     newEvent.url = '';
                     return newEvent;
