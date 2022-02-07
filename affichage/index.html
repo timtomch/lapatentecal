@@ -1,0 +1,97 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/fr-ca.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+    <link rel="stylesheet" href="custom.css">
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const formationsId = '04q4f467nvi9s7tqf1ttcemlv8@group.calendar.google.com';
+        const comitesId = '2i89g070ksba4octk7a3nq077c@group.calendar.google.com';
+        // Cette clef API ne fonctionne que sur atelierlapatente.org
+        // Modifier cette variable pour tests locaux
+        const googleApiKey = 'AIzaSyBPNRDEH9rX4E4aYraON80HjioWTMIW4ao';
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'fr-ca',
+            initialView: 'customLaPatente',
+            headerToolbar: { start: false, center: false, end: false },
+            duration: { days: 14 },
+            height: 800,
+            googleCalendarApiKey: googleApiKey,
+            eventSources: [
+                {
+                    
+                    // Comités
+                    googleCalendarId: comitesId,
+                    color: '#eb7134',
+                    className: 'comite'
+                 },
+                 {
+                     // Formations
+                     googleCalendarId: formationsId,
+                     color: '#378006',
+                     className: 'formation'
+                  }
+            ],
+            views: {
+                customLaPatente: {
+                    type: 'list',
+                    duration: { days: 14 }
+                }
+              },
+                eventDataTransform: function(eventData) {
+                    console.log(eventData);
+                    var newEvent = eventData;
+                    newEvent.url = '';
+                    return newEvent;
+                },
+              eventDidMount: function(data) {
+                  try {
+                      
+                      // Si évènement de type formation, vérifier si le titre commence par "Formation"
+                      if(data.el.classList.contains('formation') && !data.event._def.title.startsWith('Formation')){
+                          var oldTitle = data.el.children[2].firstChild;
+                          var newTitle = document.createTextNode('Formation: ');
+                          data.el.children[2].insertBefore(newTitle, oldTitle);
+                          
+                      };
+                      
+                      // Si évènement de type comité, vérifier si le titre commence par "Réunion"
+                      if(data.el.classList.contains('comite') && !data.event._def.title.startsWith('Réunion')){
+                          var oldTitle = data.el.children[2].firstChild;
+                          var newTitle = document.createTextNode('Réunion: ');
+                          data.el.children[2].insertBefore(newTitle, oldTitle);
+                          
+                      };
+                      
+                      // Ajoute description évènement si présent
+                      //if(data.event.extendedProps.description.length > 0){
+                        //  var descrElement = document.createElement("P");
+                        //  var descr = document.createTextNode(data.event.extendedProps.description);
+                        //  descrElement.appendChild(descr);
+                        //  data.el.querySelector('.fc-list-event-title').appendChild(descrElement);
+                      //}
+                  }
+                  catch {}
+                  
+                  
+                      //console.log(data.el)
+                 
+                      //console.log(data.event.extendedProps.description)
+                      }
+        });
+        calendar.render();
+      });
+
+    </script>
+  </head>
+  <body>
+    <h1>Atelier La Patente: prochaines activités</h1>
+    <div id='calendar'></div>
+  </body>
+</html>
