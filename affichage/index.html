@@ -27,7 +27,7 @@
             locale: 'fr-ca',
             initialView: 'customLaPatente',
             headerToolbar: { start: false, center: false, end: false },
-            duration: { days: 14 },
+            duration: { days: 60 },
             height: 800,
             googleCalendarApiKey: googleApiKey,
             eventSources: [
@@ -48,7 +48,7 @@
             views: {
                 customLaPatente: {
                     type: 'list',
-                    duration: { days: 14 },
+                    duration: { days: 60 },
                     listDayFormat : "dddd LL"
                 }
               },
@@ -60,8 +60,8 @@
               eventDidMount: function(data) {
                   try {
                       
-                      // Si évènement de type formation, vérifier si le titre commence par "Formation"
-                      if(data.el.classList.contains('formation') && !data.event._def.title.startsWith('Formation')){
+                      // Si évènement de type formation, vérifier si le titre commence par "Formation" ou "Atelier"
+                      if(data.el.classList.contains('formation') && !data.event._def.title.match(/^Atelier|Formation/i)){
                           var oldTitle = data.el.children[2].firstChild;
                           var newTitle = document.createTextNode('Formation: ');
                           data.el.children[2].insertBefore(newTitle, oldTitle);
@@ -69,7 +69,7 @@
                       };
                       
                       // Si évènement de type comité, vérifier si le titre commence par "Réunion"
-                      if(data.el.classList.contains('comite') && !data.event._def.title.startsWith('Réunion')){
+                      if(data.el.classList.contains('comite') && !data.event._def.title.match(/^Réunion/i))){
                           var oldTitle = data.el.children[2].firstChild;
                           var newTitle = document.createTextNode('Réunion: ');
                           data.el.children[2].insertBefore(newTitle, oldTitle);
@@ -95,10 +95,28 @@
         calendar.render();
       });
 
+      // Fonction pour faire défiler la liste des évènements automatiquement
+      var count = 0;
+      function calendarScroll() {
+          var objDiv = document.getElementsByClassName("fc-scroller")[0];
+          objDiv.scrollTop = 0;
+          const scroller = setInterval(function () {
+              objDiv.scrollTop += 1;
+              if (objDiv.scrollTop >= objDiv.scrollTopMax){
+                  //clearInterval(scroller);
+                  objDiv.scrollTop = 0;
+              }
+          }, 50);
+        };
+
+      // Fait défiler la liste des évènements après un délai de 2 secondes
+      setTimeout(calendarScroll, 2000);
+      
+
     </script>
   </head>
   <body>
-    <h1>Atelier La Patente: prochaines activités</h1>
+    <h1>Prochaines activités à la Patente</h1>
     <div id='calendar'></div>
   </body>
 </html>
