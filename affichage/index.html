@@ -69,7 +69,7 @@
                       };
                       
                       // Si évènement de type comité, vérifier si le titre commence par "Réunion"
-                      if(data.el.classList.contains('comite') && !data.event._def.title.match(/^Réunion/i))){
+                      if(data.el.classList.contains('comite') && !data.event._def.title.match(/^Réunion/i)){
                           var oldTitle = data.el.children[2].firstChild;
                           var newTitle = document.createTextNode('Réunion: ');
                           data.el.children[2].insertBefore(newTitle, oldTitle);
