@@ -106,13 +106,15 @@
       var count = 0;
       function calendarScroll() {
           var objDiv = document.getElementsByClassName("fc-scroller")[0];
+          // Calcule hauteur maximale (objDiv.scrollTopMax n'est pas disponible dans Chrome)
+          var scrollTopMax = objDiv.scrollHeight - objDiv.offsetHeight;
           // Calcule le temps d'attente entre chaque déplacement de la liste pour
           // qu'elle défile en 1 minute moins 2s de délai (58'000ms).
-          var increment_delay = parseInt(58000/objDiv.scrollTopMax);
+          var increment_delay = parseInt(58000/scrollTopMax);
           objDiv.scrollTop = 0;
           const scroller = setInterval(function () {
               objDiv.scrollTop += 1;
-              if (objDiv.scrollTop >= objDiv.scrollTopMax){
+              if (objDiv.scrollTop >= scrollTopMax){
                   //clearInterval(scroller);
                   objDiv.scrollTop = 0;
               }
