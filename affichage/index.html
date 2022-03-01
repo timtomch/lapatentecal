@@ -19,6 +19,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         const formationsId = '04q4f467nvi9s7tqf1ttcemlv8@group.calendar.google.com';
         const comitesId = '2i89g070ksba4octk7a3nq077c@group.calendar.google.com';
+        const evenementsId = 'lapatentereception@gmail.com';
         // Cette clef API ne fonctionne que sur atelierlapatente.org
         // Modifier cette variable pour tests locaux
         const googleApiKey = 'AIzaSyBPNRDEH9rX4E4aYraON80HjioWTMIW4ao';
@@ -43,6 +44,12 @@
                      googleCalendarId: formationsId,
                      color: '#378006',
                      className: 'formation'
+                  },
+                 {
+                     // Évènements
+                     googleCalendarId: evenementsId,
+                     color: '#d04ced',
+                     className: 'evenements'
                   }
             ],
             views: {
@@ -99,6 +106,9 @@
       var count = 0;
       function calendarScroll() {
           var objDiv = document.getElementsByClassName("fc-scroller")[0];
+          // Calcule le temps d'attente entre chaque déplacement de la liste pour
+          // qu'elle défile en 1 minute moins 2s de délai (58'000ms).
+          var increment_delay = parseInt(58000/objDiv.scrollTopMax);
           objDiv.scrollTop = 0;
           const scroller = setInterval(function () {
               objDiv.scrollTop += 1;
@@ -106,7 +116,7 @@
                   //clearInterval(scroller);
                   objDiv.scrollTop = 0;
               }
-          }, 50);
+          }, increment_delay);
         };
 
       // Fait défiler la liste des évènements après un délai de 2 secondes
