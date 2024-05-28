@@ -20,6 +20,7 @@
         const formationsId = '04q4f467nvi9s7tqf1ttcemlv8@group.calendar.google.com';
         const comitesId = '2i89g070ksba4octk7a3nq077c@group.calendar.google.com';
         const evenementsId = 'lapatentereception@gmail.com';
+        const velocentrixId = 'velocentrix.org_s7mmgenm8alucs8lo52dc81128@group.calendar.google.com'
         // Cette clef API ne fonctionne que sur atelierlapatente.org
         // Modifier cette variable pour tests locaux
         const googleApiKey = 'AIzaSyBPNRDEH9rX4E4aYraON80HjioWTMIW4ao';
@@ -50,7 +51,13 @@
                      googleCalendarId: evenementsId,
                      color: '#d04ced',
                      className: 'evenements'
-                  }
+                  },
+                  {
+                      // Vélocentrix
+                      googleCalendarId: velocentrixId,
+                      color: '#008080',
+                      className: 'velocentrix'
+                   }
             ],
             views: {
                 customLaPatente: {
@@ -79,6 +86,15 @@
                       if(data.el.classList.contains('comite') && !data.event._def.title.match(/^Réunion/i)){
                           var oldTitle = data.el.children[2].firstChild;
                           var newTitle = document.createTextNode('Réunion: ');
+                          data.el.children[2].insertBefore(newTitle, oldTitle);
+                          
+                      };
+                      
+                      // Si évènement Vélocentrix, ajouter mention de l'atelier (et la retirer ailleurs)
+                      if(data.el.classList.contains('velocentrix')){
+                          var oldTitle = data.el.children[2].firstChild;
+                          oldTitle.innerText = oldTitle.innerText.replace(/V(é|e)locentrix/,"");
+                          var newTitle = document.createTextNode('Vélocentrix: ');
                           data.el.children[2].insertBefore(newTitle, oldTitle);
                           
                       };
