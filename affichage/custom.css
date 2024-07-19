@@ -11,18 +11,48 @@ h1 {
     font-size: 1.5vw;
 }
 
-.formation {
+.formation, .formation::before {
     background-color: #ccffcd;
 }
 
-.comite {
+.comite, .comite::before {
     background-color: #ffeccc;
 }
 
-.evenements {
+.evenements, .evenements::before {
     background-color: #f0c3fa;
 }
 
-.velocentrix {
+.velocentrix, .velocentrix::before {
     background-color: #AFEEEE;
+}
+
+#legend {
+    position: fixed;
+    top: 150px;
+    right: 30px;
+    background: white;
+    border: 1px solid;
+    padding:10px;
+}
+
+#legend ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#legend li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    background: none;
+}
+
+#legend li::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }
