@@ -127,6 +127,11 @@
         
         setDate(minsHand,hourHand,dateEl,digitalEl);
         
+        // Met à jour l'horloge toutes les minutes
+        setInterval(function() {
+          setDate(minsHand,hourHand,dateEl,digitalEl);
+        }, 60000);
+        
       });
 
       // Fonction pour faire défiler la liste des évènements automatiquement
@@ -168,9 +173,6 @@
         digitalEl.innerText = now.toLocaleTimeString('fr-FR',{ hour: '2-digit', minute: '2-digit', hour12: false });
         
       }
-
-      setInterval(setDate, 1000);
-      
 
     </script>
   </head>
